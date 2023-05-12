@@ -28,11 +28,11 @@ class AppLocalizations {
       AppLocalizationsDelegate();
 
   Future loadTranslateFile() async {
-    String _langFile =
-        await rootBundle.loadString('assets/lang/${locale.languageCode}.json');
+    String langFile = await rootBundle
+        .loadString('assets/languages/${locale.languageCode}.json');
 
-    Map<String, dynamic> _json = jsonDecode(_langFile);
-    _valueText = _json.map((key, value) => MapEntry(key, value.toString()));
+    Map<String, dynamic> json = jsonDecode(langFile);
+    _valueText = json.map((key, value) => MapEntry(key, value.toString()));
   }
 
   String getTranslate(String key) {
