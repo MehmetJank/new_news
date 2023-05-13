@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -7,14 +8,16 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.controller,
     this.onChanged,
+    this.borderSideColor,
+    this.inputFormatters,
   });
 
   final TextInputType keyboardType;
-  final TextEditingController? controller;
-  // onechanged is optional not required
-  final Function(String)? onChanged;
-
   final String hintText;
+  final TextEditingController? controller;
+  final Function(String)? onChanged;
+  final Color? borderSideColor;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +26,17 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
+        inputFormatters: inputFormatters ?? [],
         style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
+          color: Colors.white,
           // color: AppColors.primaryWhite,
         ),
         onChanged: onChanged,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: borderSideColor ?? Colors.white),
               borderRadius: BorderRadius.circular(10)),
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.white),

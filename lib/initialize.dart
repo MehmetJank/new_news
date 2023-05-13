@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../bloc/settings/settings_cubit.dart';
 import '../localizations/localizations.dart';
-import '../storage/storage.dart';
+import 'bloc/settings/settings_cubit.dart';
+import 'storage/storage.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -23,7 +23,7 @@ class _InitialScreenState extends State<InitialScreen> {
     try {
       // read Storage
       // read Settings
-      final storage = AppStorage();
+      final storage = AppStorage();   
       var data = await storage.readAll();
 
       // --data--

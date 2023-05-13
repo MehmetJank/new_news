@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../api/user_api.dart';
 import '../widget/background_widget.dart';
 import '../widget/custom_app_bar.dart';
 import '../widget/custom_text_form_field.dart';
@@ -12,6 +14,114 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordAgainController =
+      TextEditingController();
+  bool _isEmailValid = false;
+  late Color _passwordMismatchColor = Colors.white;
+
+  final ApiClient _apiClient = ApiClient();
+
+  Future<void> _register() async {
+    final String name = _nameController.text;
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
+    final String passwordAgain = _passwordAgainController.text;
+
+    List<String> errors = [];
+
+    if (name.isEmpty) {
+      errors.add('Lütfen adınızı giriniz');
+    }
+
+    if (email.isEmpty) {
+      errors.add('Lütfen e-posta adresinizi giriniz');
+    } else if (!_isEmailValid) {
+      errors.add('Lütfen geçerli bir e-posta adresi giriniz');
+    }
+    // To do: control regex
+    if (password.length < 6) {
+      errors.add('Lütfen en az 6 karakterden oluşan bir şifre giriniz');
+    }
+
+    if (password != passwordAgain) {
+      errors.add('Şifreler eşleşmiyor');
+      _passwordMismatchColor = Colors.red;
+    } else {
+      _passwordMismatchColor = Colors.green;
+    }
+
+    if (errors.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: errors.map((error) => Text(error)).toList(),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    try {
+      final response =
+          await _apiClient.register(name, email, password, passwordAgain);
+      print(response.data);
+
+      final bool success = response.data['success'] ?? false;
+      if (success) {
+        GoRouter.of(context).go('/profile');
+      } else {
+        final String errorMessage =
+            response.data['message'] ?? 'Register failed';
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Error'),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      print('Register request failed: $e');
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text('Register request failed'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,26 +156,64 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CustomTextFormField(
+                          CustomTextFormField(
+                            controller: _nameController,
+                            borderSideColor: _nameController.text.isEmpty
+                                ? Colors.white
+                                : Colors.green,
                             keyboardType: TextInputType.text,
                             hintText: 'Adınızı giriniz',
                           ),
-                          const CustomTextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            hintText: 'Mail adresinizi giriniz',
-                          ),
-                          const CustomTextFormField(
+                          CustomTextFormField(
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              hintText: 'Mail adresinizi giriniz',
+                              onChanged: (value) {
+                                final emailRegex = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                                setState(() {
+                                  _isEmailValid = emailRegex.hasMatch(value);
+                                });
+                              },
+                              borderSideColor: _emailController.text.isEmpty
+                                  ? Colors.white
+                                  : _isEmailValid
+                                      ? Colors.green
+                                      : Colors.red),
+                          CustomTextFormField(
+                            controller: _passwordController,
+                            borderSideColor: _passwordMismatchColor,
                             keyboardType: TextInputType.visiblePassword,
                             hintText: 'Şifrenizi giriniz',
+                            onChanged: (value) {
+                              setState(() {
+                                _passwordAgainController.text != value
+                                    ? _passwordMismatchColor = Colors.red
+                                    : _passwordMismatchColor = Colors.green;
+                              });
+                            },
                           ),
-                          const CustomTextFormField(
+                          CustomTextFormField(
+                            controller: _passwordAgainController,
+                            borderSideColor: _passwordMismatchColor,
                             keyboardType: TextInputType.visiblePassword,
                             hintText: 'Şifrenizi tekrar giriniz',
+                            onChanged: (value) {
+                              setState(
+                                () {
+                                  _passwordController.text != value
+                                      ? _passwordMismatchColor = Colors.red
+                                      : _passwordMismatchColor = Colors.green;
+                                },
+                              );
+                            },
                           ),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _register();
+                              },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),

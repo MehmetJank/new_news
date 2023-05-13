@@ -53,8 +53,4 @@ class AppStorage {
     storage.setString('language', language);
     storage.setBool('darkMode', darkMode);
   }
-
-  readBalances() async {}
-
-  writeBalances() async {}
 }
