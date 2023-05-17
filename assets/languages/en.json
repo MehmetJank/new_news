@@ -27,5 +27,6 @@
   "language_selection_message": "Please select your language",
   "help_center": "Help Center",
   "logout": "Logout",
+  "logout_message": "Are you sure you want to logout?",
   "dark_mode": "Dark Mode"
 }

@@ -27,5 +27,6 @@
   "language_selection_message": "Veuillez sélectionner la langue",
   "help_center": "Centre d'aide",
   "logout": "Déconnexion",
+  "logout_message": "Voulez-vous vous déconnecter ?",
   "dark_mode": "Mode sombre"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../bloc/settings/settings_cubit.dart';
 import '../../../localizations/localizations.dart';
@@ -17,7 +18,11 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   void initState() {
-    settings = context.read<SettingsCubit>();
+    try {
+      settings = context.read<SettingsCubit>();
+    } catch (e) {
+      //pass
+    }
     super.initState();
   }
 
@@ -62,23 +67,27 @@ class _BodyState extends State<Body> {
             text: getTranslatedText(context, 'logout'),
             assetIcon: "assets/icons/Log out.svg",
             press: () {
-              AlertDialog(
-                title: Text(getTranslatedText(context, 'logout')),
-                content: Text(getTranslatedText(context, 'logout')),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(getTranslatedText(context, 'cancel')),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(getTranslatedText(context, 'logout')),
-                  ),
-                ],
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(getTranslatedText(context, 'logout')),
+                  content: Text(getTranslatedText(context, 'logout_message')),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(getTranslatedText(context, 'cancel')),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        settings.userLogout();
+                        GoRouter.of(context).go('/welcome');
+                      },
+                      child: Text(getTranslatedText(context, 'logout')),
+                    ),
+                  ],
+                ),
               );
             },
           ),

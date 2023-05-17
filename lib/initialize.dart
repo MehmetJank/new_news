@@ -93,7 +93,7 @@ class _InitialScreenState extends State<InitialScreen> {
 
       if (data["loggedIn"]) {
         // ignore: use_build_context_synchronously
-        GoRouter.of(context).replace("/home");
+        GoRouter.of(context).replace("/news");
       } else {
         // ignore: use_build_context_synchronously
         GoRouter.of(context).replace("/welcome");

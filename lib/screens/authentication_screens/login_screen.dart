@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:new_news/screens/profile_screen/components/launguage_cupertino.dart';
 
-import '../api/user_api.dart';
-import '../localizations/localizations.dart';
-import '../widgets/background_widget.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_text_form_field.dart';
+import '../../api/user_api.dart';
+import '../../bloc/settings/settings_cubit.dart';
+import '../../localizations/localizations.dart';
+import '../../widgets/background_widget.dart';
+import 'components/custom_app_bar.dart';
+import 'components/custom_text_form_field.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -19,12 +22,25 @@ class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   final ApiClient _apiClient = ApiClient();
+  bool _passwordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      settings = context.read<SettingsCubit>();
+    } catch (e) {
+      //pass
+    }
+    _passwordVisible = false;
+  }
 
   Future<void> _login() async {
     final String email = _emailController.text;
     final String password = _passwordController.text;
 
     List<String> errors = [];
+    List<String> userData = [];
 
     if (email.isEmpty) {
       errors.add(getTranslatedText(context, 'mail_address_error'));
@@ -57,8 +73,11 @@ class _LogInScreenState extends State<LogInScreen> {
       final dynamic response = await _apiClient.login(email, password);
 
       if (response != null && response["success"]) {
-        GoRouter.of(context).go('/settings');
-      } else {
+        userData
+            .add(response["user"].toString() + response["token"].toString());
+        settings.userLogin(userData);
+        GoRouter.of(context).go('/news');
+      } else {  
         final String errorMessage =
             response != null ? response["message"] : 'Login failed';
         showDialog(
@@ -136,8 +155,27 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ? Colors.white
                                 : Colors.green,
                             keyboardType: TextInputType.visiblePassword,
+                            obscureText: !_passwordVisible,
                             hintText:
                                 getTranslatedText(context, 'password_input'),
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IconButton(
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      _passwordVisible = !_passwordVisible;
+                                    },
+                                  );
+                                },
+                                icon: Icon(
+                                  _passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
                           SizedBox(
                             width: double.infinity,

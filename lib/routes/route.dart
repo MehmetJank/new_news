@@ -1,9 +1,10 @@
 import 'package:go_router/go_router.dart';
 
 import '../initialize.dart';
-import '../screens/login_screen.dart';
+import '../screens/authentication_screens/login_screen.dart';
+import '../screens/news_screen/news_screen.dart';
 import '../screens/profile_screen/profile_screen.dart';
-import '../screens/register_screen.dart';
+import '../screens/authentication_screens/register_screen.dart';
 import '../screens/welcome_screen.dart';
 
 final routes = GoRouter(
@@ -27,7 +28,11 @@ final routes = GoRouter(
     ),
     GoRoute(
       path: '/settings',
-      builder: (context, state) => ProfileScreen(),
+      builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/news',
+      builder: (context, state) => const NewsScreen(),
     ),
   ],
 );

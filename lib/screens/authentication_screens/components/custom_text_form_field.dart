@@ -10,6 +10,8 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.borderSideColor,
     this.inputFormatters,
+    this.suffixIcon,
+    this.obscureText,
   });
 
   final TextInputType keyboardType;
@@ -18,6 +20,9 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final Color? borderSideColor;
   final List<TextInputFormatter>? inputFormatters;
+  //surfixIcon: Icon(Icons.check, color: _passwordMismatchColor),
+  final Widget? suffixIcon;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters ?? [],
+        obscureText: obscureText ?? false,
         style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -47,6 +53,7 @@ class CustomTextFormField extends StatelessWidget {
             fontWeight: FontWeight.normal,
             color: Colors.grey,
           ),
+          suffixIcon: suffixIcon,
         ),
       ),
     );

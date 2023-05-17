@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../api/user_api.dart';
-import '../localizations/localizations.dart';
-import '../widgets/background_widget.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_text_form_field.dart';
+import '../../api/user_api.dart';
+import '../../bloc/settings/settings_cubit.dart';
+import '../../localizations/localizations.dart';
+import '../../widgets/background_widget.dart';
+import 'components/custom_app_bar.dart';
+import 'components/custom_text_form_field.dart';
+import '../profile_screen/components/launguage_cupertino.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -22,9 +25,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
 
   bool _isEmailValid = false;
+  bool _passwordVisible = false;
+  bool _passwordAgainVisible = false;
+
   late Color _passwordMismatchColor = Colors.white;
 
   final ApiClient _apiClient = ApiClient();
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      settings = context.read<SettingsCubit>();
+    } catch (e) {
+      //pass
+    }
+    _passwordVisible = false;
+    _passwordAgainVisible = false;
+  }
 
   Future<void> _register() async {
     final String name = _nameController.text;
@@ -33,6 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final String passwordAgain = _passwordAgainController.text;
 
     List<String> errors = [];
+    List<String> userData = [];
 
     if (name.isEmpty) {
       errors.add(getTranslatedText(context, 'name_input_error'));
@@ -82,7 +101,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           await _apiClient.register(name, email, password, passwordAgain);
 
       if (response != null && response["success"]) {
-        GoRouter.of(context).go('/settings');
+        userData
+            .add(response["user"].toString() + response["token"].toString());
+        settings.userLogin(userData);
+        GoRouter.of(context).go('/news');
       } else {
         final String errorMessage =
             response != null ? response["message"] : 'Register failed';
@@ -183,7 +205,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           CustomTextFormField(
                             controller: _passwordController,
                             borderSideColor: _passwordMismatchColor,
-                            keyboardType: TextInputType.visiblePassword,
+                            obscureText: !_passwordVisible,
+                            keyboardType: TextInputType.text,
                             hintText:
                                 getTranslatedText(context, 'password_input'),
                             onChanged: (value) {
@@ -193,23 +216,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     : _passwordMismatchColor = Colors.green;
                               });
                             },
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _passwordVisible = !_passwordVisible;
+                                  });
+                                },
+                                icon: Icon(
+                                  _passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
                           CustomTextFormField(
-                            controller: _passwordAgainController,
-                            borderSideColor: _passwordMismatchColor,
-                            keyboardType: TextInputType.visiblePassword,
-                            hintText: getTranslatedText(
-                                context, 'password_input_again'),
-                            onChanged: (value) {
-                              setState(
-                                () {
-                                  _passwordController.text != value
-                                      ? _passwordMismatchColor = Colors.red
-                                      : _passwordMismatchColor = Colors.green;
-                                },
-                              );
-                            },
-                          ),
+                              controller: _passwordAgainController,
+                              borderSideColor: _passwordMismatchColor,
+                              obscureText: !_passwordAgainVisible,
+                              keyboardType: TextInputType.visiblePassword,
+                              hintText: getTranslatedText(
+                                  context, 'password_input_again'),
+                              onChanged: (value) {
+                                setState(
+                                  () {
+                                    _passwordController.text != value
+                                        ? _passwordMismatchColor = Colors.red
+                                        : _passwordMismatchColor = Colors.green;
+                                  },
+                                );
+                              },
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordAgainVisible =
+                                          !_passwordAgainVisible;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    _passwordAgainVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
