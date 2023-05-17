@@ -23,7 +23,7 @@ class _InitialScreenState extends State<InitialScreen> {
     try {
       // read Storage
       // read Settings
-      final storage = AppStorage();   
+      final storage = AppStorage();
       var data = await storage.readAll();
 
       // --data--
@@ -92,11 +92,15 @@ class _InitialScreenState extends State<InitialScreen> {
       });
 
       if (data["loggedIn"]) {
+        // ignore: use_build_context_synchronously
         GoRouter.of(context).replace("/home");
       } else {
+        // ignore: use_build_context_synchronously
         GoRouter.of(context).replace("/welcome");
       }
-    } catch (e) {}
+    } catch (e) {
+      null;
+    }
   }
 
   @override

@@ -11,7 +11,10 @@ class Themes {
     secondary: const Color(0xffA4161A), // Cornell Red
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
+      ),
+      bodyMedium: TextStyle(
+        color: Colors.black,
       ),
     ),
   );
@@ -22,6 +25,9 @@ class Themes {
     secondary: const Color(0xffA4161A), // Cornell Red
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
+        color: Colors.white,
+      ),
+      bodyMedium: TextStyle(
         color: Colors.white,
       ),
     ),

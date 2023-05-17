@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../api/user_api.dart';
-import '../widget/background_widget.dart';
-import '../widget/custom_app_bar.dart';
-import '../widget/custom_text_form_field.dart';
+import '../localizations/localizations.dart';
+import '../widgets/background_widget.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
+  const LogInScreen({Key? key}) : super(key: key);
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -26,25 +27,25 @@ class _LogInScreenState extends State<LogInScreen> {
     List<String> errors = [];
 
     if (email.isEmpty) {
-      errors.add('Lütfen e-posta adresinizi giriniz');
+      errors.add(getTranslatedText(context, 'mail_address_error'));
     }
 
     if (password.isEmpty) {
-      errors.add('Lütfen şifrenizi giriniz');
+      errors.add(getTranslatedText(context, 'password_error'));
     }
 
     if (errors.isNotEmpty) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
+          title: Text(getTranslatedText(context, 'error')),
           content: Text(errors.join('\n')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('OK'),
+              child: Text(getTranslatedText(context, 'ok')),
             ),
           ],
         ),
@@ -53,43 +54,41 @@ class _LogInScreenState extends State<LogInScreen> {
     }
 
     try {
-      final response = await _apiClient.login(email, password);
-      print(response.data);
+      final dynamic response = await _apiClient.login(email, password);
 
-      final bool success = response.data['success'] ?? false;
-      if (success) {
-        GoRouter.of(context).go('/profile');
+      if (response != null && response["success"]) {
+        GoRouter.of(context).go('/settings');
       } else {
-        final String errorMessage = response.data['message'] ?? 'Login failed';
+        final String errorMessage =
+            response != null ? response["message"] : 'Login failed';
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Error'),
+            title: Text(getTranslatedText(context, 'error')),
             content: Text(errorMessage),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('OK'),
+                child: Text(getTranslatedText(context, 'ok')),
               ),
             ],
           ),
         );
       }
     } catch (e) {
-      print('Login request failed: $e');
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('Login request failed'),
+          title: Text(getTranslatedText(context, 'error')),
+          content: Text(getTranslatedText(context, 'login_error')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('OK'),
+              child: Text(getTranslatedText(context, 'ok')),
             ),
           ],
         ),
@@ -106,7 +105,7 @@ class _LogInScreenState extends State<LogInScreen> {
             children: [
               const CustomBackground(
                   assetImage: 'assets/images/background.jpg'),
-              const CustomAppBar(title: 'Giriş Yap'),
+              CustomAppBar(title: getTranslatedText(context, 'login')),
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.center,
@@ -128,7 +127,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ? Colors.white
                                 : Colors.green,
                             keyboardType: TextInputType.emailAddress,
-                            hintText: 'Mail adresinizi giriniz',
+                            hintText: getTranslatedText(
+                                context, 'mail_address_input'),
                           ),
                           CustomTextFormField(
                             controller: _passwordController,
@@ -136,7 +136,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ? Colors.white
                                 : Colors.green,
                             keyboardType: TextInputType.visiblePassword,
-                            hintText: 'Şifrenizi giriniz',
+                            hintText:
+                                getTranslatedText(context, 'password_input'),
                           ),
                           SizedBox(
                             width: double.infinity,
@@ -151,9 +152,9 @@ class _LogInScreenState extends State<LogInScreen> {
                                   horizontal: 50,
                                 ),
                               ),
-                              child: const Text(
-                                'Giriş Yap',
-                                style: TextStyle(
+                              child: Text(
+                                getTranslatedText(context, 'login'),
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),

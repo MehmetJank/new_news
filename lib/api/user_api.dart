@@ -4,7 +4,7 @@ class ApiClient {
   final Dio _dio = Dio();
   final String _baseUrl = 'https://api.eskanist.com/public/api';
 
-  Future<Response> login(String email, String password) async {
+  Future<dynamic> login(String email, String password) async {
     final data = {
       'email': email,
       'password': password,
@@ -12,13 +12,26 @@ class ApiClient {
 
     try {
       final response = await _dio.post('$_baseUrl/login', data: data);
-      return response;
+      if (response.statusCode == 200) {
+        if (response.data["success"]) {
+          var res = response.data;
+          return res;
+        } else {
+          // error = response.data["msg"];
+          return null;
+        }
+      } else if (response.statusCode == 404) {
+        // wrong user password
+        return null;
+      } else {
+        return null;
+      }
     } catch (e) {
       throw Exception('Login request failed');
     }
   }
 
-  Future<Response> register(String name, String email, String password,
+  Future<dynamic> register(String name, String email, String password,
       String confirmPassword) async {
     final data = {
       'name': name,
@@ -29,7 +42,20 @@ class ApiClient {
 
     try {
       final response = await _dio.post('$_baseUrl/register', data: data);
-      return response;
+      if (response.statusCode == 200) {
+        if (response.data["success"]) {
+          var res = response.data;
+          return res;
+        } else {
+          // error = response.data["msg"];
+          return null;
+        }
+      } else if (response.statusCode == 404) {
+        // wrong user password
+        return null;
+      } else {
+        return null;
+      }
     } catch (e) {
       throw Exception('Register request failed');
     }

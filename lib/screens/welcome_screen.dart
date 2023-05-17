@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../widget/background_widget.dart';
+import '../localizations/localizations.dart';
+import '../widgets/background_widget.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -57,11 +57,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(14.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(14.0),
                             child: Text(
-                              'Giriş Yap',
-                              style: TextStyle(
+                              getTranslatedText(context, 'login'),
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -93,11 +93,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(14.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(14.0),
                             child: Text(
-                              'Kayıt Ol',
-                              style: TextStyle(
+                              getTranslatedText(context, 'register'),
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),

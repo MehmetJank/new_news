@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'bloc/settings/settings_cubit.dart';
 import 'bloc/settings/settings_state.dart';
 import 'localizations/localizations.dart';
@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           localizationsDelegates: const [
             AppLocalizations.delegate,
-            // GlobalMaterialLocalizations.delegate,
-            // GlobalCupertinoLocalizations.delegate,
-            // GlobalWidgetsLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLanguages
               .map((e) => Locale(e, ""))

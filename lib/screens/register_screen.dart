@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../api/user_api.dart';
-import '../widget/background_widget.dart';
-import '../widget/custom_app_bar.dart';
-import '../widget/custom_text_form_field.dart';
+import '../localizations/localizations.dart';
+import '../widgets/background_widget.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordAgainController =
       TextEditingController();
+
   bool _isEmailValid = false;
   late Color _passwordMismatchColor = Colors.white;
 
@@ -33,21 +35,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     List<String> errors = [];
 
     if (name.isEmpty) {
-      errors.add('Lütfen adınızı giriniz');
+      errors.add(getTranslatedText(context, 'name_input_error'));
     }
 
     if (email.isEmpty) {
-      errors.add('Lütfen e-posta adresinizi giriniz');
+      errors.add(getTranslatedText(context, 'mail_address_input'));
     } else if (!_isEmailValid) {
-      errors.add('Lütfen geçerli bir e-posta adresi giriniz');
+      errors.add(getTranslatedText(context, 'mail_address_input_error'));
     }
     // To do: control regex
     if (password.length < 6) {
-      errors.add('Lütfen en az 6 karakterden oluşan bir şifre giriniz');
+      errors.add(getTranslatedText(context, 'password_error'));
     }
 
     if (password != passwordAgain) {
-      errors.add('Şifreler eşleşmiyor');
+      errors.add(getTranslatedText(context, 'password_is_different'));
       _passwordMismatchColor = Colors.red;
     } else {
       _passwordMismatchColor = Colors.green;
@@ -57,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
+          title: Text(getTranslatedText(context, 'error')),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: errors.map((error) => Text(error)).toList(),
@@ -67,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('OK'),
+              child: Text(getTranslatedText(context, 'ok')),
             ),
           ],
         ),
@@ -76,45 +78,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     try {
-      final response =
+      final dynamic response =
           await _apiClient.register(name, email, password, passwordAgain);
-      print(response.data);
 
-      final bool success = response.data['success'] ?? false;
-      if (success) {
-        GoRouter.of(context).go('/profile');
+      if (response != null && response["success"]) {
+        GoRouter.of(context).go('/settings');
       } else {
         final String errorMessage =
-            response.data['message'] ?? 'Register failed';
+            response != null ? response["message"] : 'Register failed';
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Error'),
+            title: Text(getTranslatedText(context, 'error')),
             content: Text(errorMessage),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('OK'),
+                child: Text(getTranslatedText(context, 'ok')),
               ),
             ],
           ),
         );
       }
     } catch (e) {
-      print('Register request failed: $e');
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('Register request failed'),
+          title: Text(getTranslatedText(context, 'error')),
+          content: Text(getTranslatedText(context, 'login_error')),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('OK'),
+              child: Text(getTranslatedText(context, 'ok')),
             ),
           ],
         ),
@@ -131,15 +130,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               const CustomBackground(
                   assetImage: 'assets/images/background.jpg'),
-              const CustomAppBar(title: 'Kayıt Ol'),
+              CustomAppBar(title: getTranslatedText(context, 'register')),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Lütfen Bilgilerinizi Eksiksiz Giriniz",
-                      style: TextStyle(
+                    Text(
+                      getTranslatedText(context, 'input_all_fields'),
+                      style: const TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -162,12 +161,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ? Colors.white
                                 : Colors.green,
                             keyboardType: TextInputType.text,
-                            hintText: 'Adınızı giriniz',
+                            hintText: getTranslatedText(context, 'name_input'),
                           ),
                           CustomTextFormField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
-                              hintText: 'Mail adresinizi giriniz',
+                              hintText: getTranslatedText(
+                                  context, 'mail_address_input'),
                               onChanged: (value) {
                                 final emailRegex = RegExp(
                                     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -184,7 +184,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _passwordController,
                             borderSideColor: _passwordMismatchColor,
                             keyboardType: TextInputType.visiblePassword,
-                            hintText: 'Şifrenizi giriniz',
+                            hintText:
+                                getTranslatedText(context, 'password_input'),
                             onChanged: (value) {
                               setState(() {
                                 _passwordAgainController.text != value
@@ -197,7 +198,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _passwordAgainController,
                             borderSideColor: _passwordMismatchColor,
                             keyboardType: TextInputType.visiblePassword,
-                            hintText: 'Şifrenizi tekrar giriniz',
+                            hintText: getTranslatedText(
+                                context, 'password_input_again'),
                             onChanged: (value) {
                               setState(
                                 () {
@@ -223,9 +225,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   horizontal: 50,
                                 ),
                               ),
-                              child: const Text(
-                                'Kayıt Ol',
-                                style: TextStyle(
+                              child: Text(
+                                getTranslatedText(context, 'register'),
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),

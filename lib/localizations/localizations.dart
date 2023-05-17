@@ -73,3 +73,7 @@ Locale? localeResolutionCallback(
   }
   return supportedLocales.first;
 }
+
+String getTranslatedText(BuildContext context, String key) {
+  return AppLocalizations.of(context).getTranslate(key);
+}
