@@ -51,21 +51,7 @@ class _LogInScreenState extends State<LogInScreen> {
     }
 
     if (errors.isNotEmpty) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(getTranslatedText(context, 'error')),
-          content: Text(errors.join('\n')),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(getTranslatedText(context, 'ok')),
-            ),
-          ],
-        ),
-      );
+      _showErrorDialog(errors.join('\n'));
       return;
     }
 
@@ -73,46 +59,40 @@ class _LogInScreenState extends State<LogInScreen> {
       final dynamic response = await _apiClient.login(email, password);
 
       if (response != null && response["success"]) {
-        userData
-            .add(response["user"].toString() + response["token"].toString());
+        userData.add(response["user"].toString());
+        userData.add(response["token"].toString());
         settings.userLogin(userData);
-        GoRouter.of(context).go('/news');
-      } else {  
+        _navigateToNewsScreen();
+      } else {
         final String errorMessage =
             response != null ? response["message"] : 'Login failed';
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(getTranslatedText(context, 'error')),
-            content: Text(errorMessage),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(getTranslatedText(context, 'ok')),
-              ),
-            ],
-          ),
-        );
+        _showErrorDialog(errorMessage);
       }
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(getTranslatedText(context, 'error')),
-          content: Text(getTranslatedText(context, 'login_error')),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(getTranslatedText(context, 'ok')),
-            ),
-          ],
-        ),
-      );
+      _showErrorDialog(getTranslatedText(context, 'login_error'));
     }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(getTranslatedText(context, 'error')),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(getTranslatedText(context, 'ok')),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _navigateToNewsScreen() {
+    GoRouter.of(context).pushReplacement('/news');
   }
 
   @override
