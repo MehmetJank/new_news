@@ -16,6 +16,9 @@ class Themes {
       bodyMedium: TextStyle(
         color: Colors.black,
       ),
+      bodySmall: TextStyle(
+        color: Colors.black,
+      ),
     ),
   );
 
@@ -28,6 +31,9 @@ class Themes {
         color: Colors.white,
       ),
       bodyMedium: TextStyle(
+        color: Colors.white,
+      ),
+      bodySmall: TextStyle(
         color: Colors.white,
       ),
     ),

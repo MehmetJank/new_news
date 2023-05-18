@@ -42,7 +42,7 @@ class _NewsCategoryRowState extends State<NewsCategoryRow> {
               child: Text(
                 categories[index],
                 style: TextStyle(
-                  color: selectedIndex == index ? Colors.white : Colors.black,
+                  color: selectedIndex == index ? Colors.white : null,
                   fontWeight: FontWeight.bold,
                 ),
               ),
