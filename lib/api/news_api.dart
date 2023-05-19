@@ -5,8 +5,7 @@ import '../screens/news_screen/components/news_model.dart';
 class NewsApi {
   final Dio _dio = Dio();
   final String _baseUrl = 'https://newsapi.org/v2/top-headlines?pageSize=10';
-  final String _apiKey = "Your Api Key";
-
+  final String _apiKey = "";
   List<NewsModel> news = [];
 
   Future<void> getNews(

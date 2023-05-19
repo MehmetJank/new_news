@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:new_news/screens/profile_screen/components/launguage_cupertino.dart';
+import 'package:new_news/screens/settings_screen/components/launguage_cupertino.dart';
 
 import '../../api/user_api.dart';
 import '../../bloc/settings/settings_cubit.dart';
@@ -60,7 +60,9 @@ class _LogInScreenState extends State<LogInScreen> {
 
       if (response != null && response["success"]) {
         userData.add(response["user"].toString());
-        userData.add(response["token"].toString());
+        userData.add(response["email"].toString());
+        // userData.add(response["phone"].toString());
+        // userData.add(response["profile_image"].toString());
         settings.userLogin(userData);
         _navigateToNewsScreen();
       } else {

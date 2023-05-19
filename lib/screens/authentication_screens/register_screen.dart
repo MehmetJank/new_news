@@ -8,7 +8,7 @@ import '../../localizations/localizations.dart';
 import '../../widgets/background_widget.dart';
 import 'components/custom_app_bar.dart';
 import 'components/custom_text_form_field.dart';
-import '../profile_screen/components/launguage_cupertino.dart';
+import '../settings_screen/components/launguage_cupertino.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -85,7 +85,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (response != null && response["success"]) {
         userData.add(response["user"].toString());
-        userData.add(response["token"].toString());
+        userData.add(response["email"].toString());
+        // userData.add(response["phone"].toString());
+        // userData.add(response["profile_image"].toString());
         settings.userLogin(userData);
         _navigateToNewsScreen();
       } else {

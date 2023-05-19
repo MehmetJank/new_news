@@ -9,7 +9,7 @@ class NewsScreen extends StatefulWidget {
   const NewsScreen({Key? key}) : super(key: key);
 
   @override
-  _NewsScreenState createState() => _NewsScreenState();
+  State<NewsScreen> createState() => _NewsScreenState();
 }
 
 class _NewsScreenState extends State<NewsScreen> {
@@ -18,7 +18,7 @@ class _NewsScreenState extends State<NewsScreen> {
   int currentPage = 1;
   bool isFetching = false;
 
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _NewsScreenState extends State<NewsScreen> {
 
   void getNews() async {
     NewsApi newsApi = NewsApi();
-    await newsApi.getNews("us", "en", currentPage);
+    await newsApi.getNews("tr", "tr", currentPage);
     await Future.delayed(const Duration(seconds: 1));
     newsList.addAll(newsApi.news);
     setState(() {

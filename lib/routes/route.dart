@@ -4,6 +4,7 @@ import '../initialize.dart';
 import '../screens/authentication_screens/login_screen.dart';
 import '../screens/news_screen/news_screen.dart';
 import '../screens/profile_screen/profile_screen.dart';
+import '../screens/settings_screen/settings_screen.dart';
 import '../screens/authentication_screens/register_screen.dart';
 import '../screens/welcome_screen.dart';
 
@@ -28,11 +29,15 @@ final routes = GoRouter(
     ),
     GoRoute(
       path: '/settings',
-      builder: (context, state) => const ProfileScreen(),
+      builder: (context, state) => const SettingScreen(),
     ),
     GoRoute(
       path: '/news',
       builder: (context, state) => const NewsScreen(),
     ),
+    // GoRoute(
+    //   path: '/profile',
+    //   // builder: (context, state) => const ProfileScreen(),
+    // ),
   ],
 );

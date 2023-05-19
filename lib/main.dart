@@ -20,6 +20,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //ignore: unused_field
   late ConnectivityResult _connectivityResult;
   late bool _isConnected;
 
