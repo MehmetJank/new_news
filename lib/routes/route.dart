@@ -35,9 +35,9 @@ final routes = GoRouter(
       path: '/news',
       builder: (context, state) => const NewsScreen(),
     ),
-    // GoRoute(
-    //   path: '/profile',
-    //   // builder: (context, state) => const ProfileScreen(),
-    // ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfileScreen(),
+    ),
   ],
 );

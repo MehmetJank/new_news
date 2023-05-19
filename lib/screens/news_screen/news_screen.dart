@@ -74,7 +74,7 @@ class _NewsScreenState extends State<NewsScreen> {
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                context.go('/settings');
+                GoRouter.of(context).replace('/settings');
               },
             ),
           ],

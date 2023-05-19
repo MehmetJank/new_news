@@ -86,8 +86,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (response != null && response["success"]) {
         userData.add(response["user"].toString());
         userData.add(response["email"].toString());
-        // userData.add(response["phone"].toString());
-        // userData.add(response["profile_image"].toString());
+        userData.add(response["phone"].toString());
+        userData.add(response["profile_image"].toString());
         settings.userLogin(userData);
         _navigateToNewsScreen();
       } else {

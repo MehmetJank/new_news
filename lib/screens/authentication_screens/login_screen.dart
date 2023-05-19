@@ -59,10 +59,10 @@ class _LogInScreenState extends State<LogInScreen> {
       final dynamic response = await _apiClient.login(email, password);
 
       if (response != null && response["success"]) {
-        userData.add(response["user"].toString());
+        userData.add(response["name"].toString());
         userData.add(response["email"].toString());
-        // userData.add(response["phone"].toString());
-        // userData.add(response["profile_image"].toString());
+        userData.add(response["phone"].toString());
+        userData.add(response["profile_image"].toString());
         settings.userLogin(userData);
         _navigateToNewsScreen();
       } else {
