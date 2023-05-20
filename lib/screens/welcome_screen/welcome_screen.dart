@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../localizations/localizations.dart';
-import '../widgets/background_widget.dart';
+import '../../bloc/settings/settings_cubit.dart';
+import '../../localizations/localizations.dart';
+import '../../widgets/background_widget.dart';
+import 'components/language_drop_down_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -11,6 +14,16 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  void initState() {
+    try {
+      settings = context.read<SettingsCubit>();
+    } catch (e) {
+      //pass
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,6 +35,29 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Column(
                 children: [
+                  Row(
+                    // To do change the language functionality
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.language),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.black),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                          ),
+                        ),
+                        color: Colors.white,
+                        onPressed: () {
+                          showLanguageDropdown(context);
+                        },
+                      ),
+                    ],
+                  ),
                   const SizedBox(
                     height: 40,
                   ),

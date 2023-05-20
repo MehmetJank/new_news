@@ -6,7 +6,7 @@ import '../screens/news_screen/news_screen.dart';
 import '../screens/profile_screen/profile_screen.dart';
 import '../screens/settings_screen/settings_screen.dart';
 import '../screens/authentication_screens/register_screen.dart';
-import '../screens/welcome_screen.dart';
+import '../screens/welcome_screen/welcome_screen.dart';
 
 final routes = GoRouter(
   initialLocation: '/',

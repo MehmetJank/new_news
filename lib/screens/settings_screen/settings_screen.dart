@@ -19,7 +19,7 @@ class _SettingScreenState extends State<SettingScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            GoRouter.of(context).replace('/news');
+            GoRouter.of(context).go('/news');
           },
         ),
       ),

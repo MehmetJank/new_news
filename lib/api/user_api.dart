@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class ApiClient {
   final Dio _dio = Dio();
-  final String _baseUrl = 'https://api.eskanist.com/public/api';
+  final String _baseUrl = 'https://api.qline.app/api';
 
   Future<dynamic> login(String email, String password) async {
     final data = {

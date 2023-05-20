@@ -43,11 +43,11 @@ class _LogInScreenState extends State<LogInScreen> {
     List<String> userData = [];
 
     if (email.isEmpty) {
-      errors.add(getTranslatedText(context, 'mail_address_error'));
+      errors.add(getTranslatedText(context, 'input_mail_address'));
     }
 
     if (password.isEmpty) {
-      errors.add(getTranslatedText(context, 'password_error'));
+      errors.add(getTranslatedText(context, 'input_password_error'));
     }
 
     if (errors.isNotEmpty) {
@@ -101,94 +101,91 @@ class _LogInScreenState extends State<LogInScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              const CustomBackground(
-                  assetImage: 'assets/images/background.jpg'),
-              CustomAppBar(title: getTranslatedText(context, 'login')),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: Container(
-                      padding: const EdgeInsets.all(28),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.transparent.withOpacity(0.4),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CustomTextFormField(
-                            controller: _emailController,
-                            borderSideColor: _emailController.text.isEmpty
-                                ? Colors.white
-                                : Colors.green,
-                            keyboardType: TextInputType.emailAddress,
-                            hintText: getTranslatedText(
-                                context, 'mail_address_input'),
-                          ),
-                          CustomTextFormField(
-                            controller: _passwordController,
-                            borderSideColor: _passwordController.text.isEmpty
-                                ? Colors.white
-                                : Colors.green,
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: !_passwordVisible,
-                            hintText:
-                                getTranslatedText(context, 'password_input'),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: IconButton(
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      _passwordVisible = !_passwordVisible;
-                                    },
-                                  );
-                                },
-                                icon: Icon(
-                                  _passwordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Colors.white,
-                                ),
+        body: Stack(
+          children: [
+            const CustomBackground(assetImage: 'assets/images/background.jpg'),
+            CustomAppBar(title: getTranslatedText(context, 'login')),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Container(
+                    padding: const EdgeInsets.all(28),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.transparent.withOpacity(0.4),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CustomTextFormField(
+                          controller: _emailController,
+                          borderSideColor: _emailController.text.isEmpty
+                              ? Colors.white
+                              : Colors.green,
+                          keyboardType: TextInputType.emailAddress,
+                          hintText:
+                              getTranslatedText(context, 'input_mail_address'),
+                        ),
+                        CustomTextFormField(
+                          controller: _passwordController,
+                          borderSideColor: _passwordController.text.isEmpty
+                              ? Colors.white
+                              : Colors.green,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: !_passwordVisible,
+                          hintText:
+                              getTranslatedText(context, 'input_password'),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    _passwordVisible = !_passwordVisible;
+                                  },
+                                );
+                              },
+                              icon: Icon(
+                                _passwordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.white,
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: _login,
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20,
-                                  horizontal: 50,
-                                ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _login,
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Text(
-                                getTranslatedText(context, 'login'),
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 50,
+                              ),
+                            ),
+                            child: Text(
+                              getTranslatedText(context, 'login'),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

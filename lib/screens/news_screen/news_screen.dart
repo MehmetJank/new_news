@@ -34,32 +34,37 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   void dispose() {
-    // ScrollController'ı temizleme
     _scrollController.dispose();
     super.dispose();
   }
 
-  void getNews() async {
+  Future<void> getNews() async {
     NewsApi newsApi = NewsApi();
-    await newsApi.getNews("tr", "tr", currentPage);
+    await newsApi.getNews("us", "en", currentPage);
     await Future.delayed(const Duration(seconds: 1));
-    newsList.addAll(newsApi.news);
-    setState(() {
-      _isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        newsList.addAll(newsApi.news);
+        _isLoading = false;
+      });
+    }
   }
 
-  void fetchMoreNews() async {
+  void fetchMoreNews() {
     if (!isFetching) {
       setState(() {
         isFetching = true;
+        currentPage++;
       });
-      currentPage++;
 
-      getNews();
-
-      setState(() {
-        isFetching = false;
+      getNews().then((_) {
+        setState(() {
+          isFetching = false;
+        });
+      }).catchError((error) {
+        setState(() {
+          isFetching = false;
+        });
       });
     }
   }
@@ -74,7 +79,7 @@ class _NewsScreenState extends State<NewsScreen> {
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                GoRouter.of(context).replace('/settings');
+                GoRouter.of(context).go('/settings');
               },
             ),
           ],

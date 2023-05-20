@@ -20,6 +20,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordAgainController =
       TextEditingController();
@@ -47,6 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _register() async {
     final String name = _nameController.text;
     final String email = _emailController.text;
+    final String phone_number = _phoneController.text;
     final String password = _passwordController.text;
     final String passwordAgain = _passwordAgainController.text;
 
@@ -54,17 +56,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     List<String> userData = [];
 
     if (name.isEmpty) {
-      errors.add(getTranslatedText(context, 'name_input_error'));
+      errors.add(getTranslatedText(context, 'input_name_error'));
     }
 
     if (email.isEmpty) {
-      errors.add(getTranslatedText(context, 'mail_address_input'));
+      errors.add(getTranslatedText(context, 'input_mail_address'));
     } else if (!_isEmailValid) {
-      errors.add(getTranslatedText(context, 'mail_address_input_error'));
+      errors.add(getTranslatedText(context, 'input_mail_address_error'));
     }
-    // To do: control regex
+
+    if (phone_number.isEmpty) {
+      errors.add(getTranslatedText(context, 'input_phone_number_error'));
+    }
+
     if (password.length < 6) {
-      errors.add(getTranslatedText(context, 'password_error'));
+      errors.add(getTranslatedText(context, 'input_password_error'));
     }
 
     if (password != passwordAgain) {
@@ -162,13 +168,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ? Colors.white
                                 : Colors.green,
                             keyboardType: TextInputType.text,
-                            hintText: getTranslatedText(context, 'name_input'),
+                            hintText: getTranslatedText(context, 'input_name'),
                           ),
                           CustomTextFormField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               hintText: getTranslatedText(
-                                  context, 'mail_address_input'),
+                                  context, 'input_mail_address'),
                               onChanged: (value) {
                                 final emailRegex = RegExp(
                                     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -182,12 +188,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ? Colors.green
                                       : Colors.red),
                           CustomTextFormField(
+                            controller: _phoneController,
+                            keyboardType: TextInputType.phone,
+                            hintText: getTranslatedText(
+                                context, 'input_phone_number'),
+                          ),
+                          CustomTextFormField(
                             controller: _passwordController,
                             borderSideColor: _passwordMismatchColor,
                             obscureText: !_passwordVisible,
                             keyboardType: TextInputType.text,
                             hintText:
-                                getTranslatedText(context, 'password_input'),
+                                getTranslatedText(context, 'input_password'),
                             onChanged: (value) {
                               setState(() {
                                 _passwordAgainController.text != value
@@ -218,7 +230,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               obscureText: !_passwordAgainVisible,
                               keyboardType: TextInputType.visiblePassword,
                               hintText: getTranslatedText(
-                                  context, 'password_input_again'),
+                                  context, 'input_password_again'),
                               onChanged: (value) {
                                 setState(
                                   () {
