@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
             text: getTranslatedText(context, 'my_account'),
             assetIcon: "assets/icons/User Icon.svg",
             press: () => {
-              GoRouter.of(context).replace('/profile'),
+              GoRouter.of(context).push('/profile'),
             },
           ),
           SettingMenu(

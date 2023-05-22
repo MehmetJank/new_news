@@ -20,6 +20,7 @@
   "input_name": "Input Name",
   "input_name_error": "Please input name",
   "--------Settings Screen--------": "--------Settings Screen--------",
+  "settings": "Settings",
   "my_account": "My Account",
   "language": "Launguage",
   "language_en": "English",
@@ -30,5 +31,15 @@
   "help_center": "Help Center",
   "logout": "Logout",
   "logout_message": "Are you sure you want to logout?",
-  "dark_mode": "Dark Mode"
+  "dark_mode": "Dark Mode",
+  "--------Profile Screen--------": "--------Profile Screen--------",
+  "profile": "Profile",
+  "your_name": "Your Name",
+  "your_mail_address": "Your Mail Address",
+  "your_phone_number": "Your Phone Number",
+  "--------News Screen--------": "--------News Screen--------",
+  "politcs": "Politcs",
+  "sports": "Sports",
+  "entertainment": "Entertainment",
+  "technology": "Technology"
 }

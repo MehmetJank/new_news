@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_news/localizations/localizations.dart';
 
 import '../../../bloc/settings/settings_cubit.dart';
 import '../../settings_screen/components/profile_pic.dart';
@@ -40,19 +41,19 @@ class _ProfileBodyState extends State<ProfileBody> {
           const ProfilePic(),
           const SizedBox(height: 20),
           ProfileMenu(
-            title: "Your Name",
-            icon: "assets/icons/User Icon.svg",
-            info: settings.state.userInfo[0],
-          ),
-          ProfileMenu(
-            title: "Your email",
+            title: getTranslatedText(context, "your_name"),
             icon: "assets/icons/User Icon.svg",
             info: settings.state.userInfo[1],
           ),
           ProfileMenu(
-            title: "Your phone number",
-            icon: "assets/icons/Phone.svg",
+            title: getTranslatedText(context, "your_mail_address"),
+            icon: "assets/icons/User Icon.svg",
             info: settings.state.userInfo[2],
+          ),
+          ProfileMenu(
+            title: getTranslatedText(context, "your_phone_number"),
+            icon: "assets/icons/Phone.svg",
+            info: settings.state.userInfo[3],
           ),
         ],
       ),

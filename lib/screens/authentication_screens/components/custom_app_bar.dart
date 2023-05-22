@@ -26,8 +26,7 @@ class CustomAppBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                //go router pop
-                context.go('/');
+                GoRouter.of(context).pop();
               },
               icon: const Icon(Icons.arrow_back, color: Colors.white),
             ),

@@ -20,6 +20,7 @@
   "input_name": "Saisir le nom",
   "input_name_error": "Veuillez saisir un nom",
   "--------Settings Screen--------": "--------Settings Screen--------",
+  "settings": "Paramètres",
   "my_account": "Mon compte",
   "language": "Langue",
   "language_en": "English",
@@ -30,5 +31,15 @@
   "help_center": "Centre d'aide",
   "logout": "Déconnexion",
   "logout_message": "Voulez-vous vous déconnecter ?",
-  "dark_mode": "Mode sombre"
+  "dark_mode": "Mode sombre",
+  "--------Profile Screen--------": "--------Profile Screen--------",
+  "profile": "Profil",
+  "your_name": "Votre nom",
+  "your_mail_address": "Votre adresse e-mail",
+  "your_phone_number": "Votre numéro de téléphone",
+  "--------News Screen--------": "--------News Screen--------",
+  "politics": "Politique",
+  "sports": "Sports",
+  "entertainment": "Divertissement",
+  "technology": "Technologie"
 }

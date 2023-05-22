@@ -59,6 +59,7 @@ class _LogInScreenState extends State<LogInScreen> {
       final dynamic response = await _apiClient.login(email, password);
 
       if (response != null && response["success"]) {
+        userData.add(response["token"].toString());
         userData.add(response["name"].toString());
         userData.add(response["email"].toString());
         userData.add(response["phone"].toString());
@@ -94,7 +95,7 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   void _navigateToNewsScreen() {
-    GoRouter.of(context).pushReplacement('/news');
+    GoRouter.of(context).go('/news');
   }
 
   @override

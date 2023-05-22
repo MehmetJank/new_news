@@ -86,10 +86,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     try {
-      final dynamic response =
-          await _apiClient.register(name, email, password, passwordAgain);
+      final dynamic response = await _apiClient.register(
+          name, email, phone_number, password, passwordAgain);
 
       if (response != null && response["success"]) {
+        userData.add(response["token"].toString());
         userData.add(response["user"].toString());
         userData.add(response["email"].toString());
         userData.add(response["phone"].toString());
@@ -125,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _navigateToNewsScreen() {
-    GoRouter.of(context).pushReplacement('/news');
+    GoRouter.of(context).go('/news');
   }
 
   @override
@@ -192,6 +193,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             keyboardType: TextInputType.phone,
                             hintText: getTranslatedText(
                                 context, 'input_phone_number'),
+                            borderSideColor: _phoneController.text.isEmpty
+                                ? Colors.white
+                                : Colors.green,
                           ),
                           CustomTextFormField(
                             controller: _passwordController,

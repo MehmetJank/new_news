@@ -20,6 +20,7 @@
   "input_name": "İsim Girin",
   "input_name_error": "Lütfen isim girin",
   "--------Settings Screen--------": "--------Settings Screen--------",
+  "settings": "Ayarlar",
   "my_account": "Hesabım",
   "language": "Dil",
   "language_en": "English",
@@ -30,5 +31,15 @@
   "help_center": "Yardım Merkezi",
   "logout": "Çıkış Yap",
   "logout_message": "Çıkış yapmak istediğinize emin misiniz?",
-  "dark_mode": "Karanlık Mod"
+  "dark_mode": "Karanlık Mod",
+  "--------Profile Screen--------": "--------Profile Screen--------",
+  "profile": "Profil",
+  "your_name": "Adınız",
+  "your_mail_address": "E-posta Adresiniz",
+  "your_phone_number": "Telefon Numaranız",
+  "--------News Screen--------": "--------News Screen--------",
+  "politics": "Politika",
+  "sports": "Spor",
+  "entartainment": "Eğlence",
+  "technology": "Teknoloji"
 }

@@ -76,7 +76,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            GoRouter.of(context).go('/login');
+                            GoRouter.of(context).push('/login');
                           },
                           style: ButtonStyle(
                             // foregroundColor: MaterialStateProperty.all<
@@ -113,7 +113,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             //Router login screen
-                            GoRouter.of(context).go('/register');
+                            GoRouter.of(context).push('/register');
                           },
                           style: ButtonStyle(
                             // foregroundColor:

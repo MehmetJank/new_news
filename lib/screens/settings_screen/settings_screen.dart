@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:new_news/localizations/localizations.dart';
 
 import 'components/settings_body.dart';
 
@@ -15,7 +16,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text(getTranslatedText(context, "settings")),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {

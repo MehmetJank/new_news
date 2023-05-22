@@ -31,11 +31,12 @@ class ApiClient {
     }
   }
 
-  Future<dynamic> register(String name, String email, String password,
-      String confirmPassword) async {
+  Future<dynamic> register(String name, String email, String phoneNumber,
+      String password, String confirmPassword) async {
     final data = {
       'name': name,
       'email': email,
+      'phone': phoneNumber,
       'password': password,
       'confirm_password': confirmPassword,
     };

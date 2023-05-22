@@ -41,7 +41,7 @@ class _NewsScreenState extends State<NewsScreen> {
   Future<void> getNews() async {
     NewsApi newsApi = NewsApi();
     await newsApi.getNews("us", "en", currentPage);
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
       setState(() {
         newsList.addAll(newsApi.news);
@@ -74,12 +74,13 @@ class _NewsScreenState extends State<NewsScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("News"),
+          title: const Text("New News"),
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                GoRouter.of(context).go('/settings');
+                // GoRouter.of(context).go('/settings');
+                GoRouter.of(context).push('/settings');
               },
             ),
           ],
@@ -104,7 +105,8 @@ class _NewsScreenState extends State<NewsScreen> {
                               return _buildLoader();
                             } else {
                               return NewsTile(
-                                imgUrl: newsList[index].urlToImage ?? "",
+                                imgUrl: newsList[index].urlToImage ??
+                                    "https://www.rollingstone.com/wp-content/uploads/2022/07/BCS_600_GL_0325_0151-RT-1C.jpg?w=1581&h=1054&crop=1",
                                 title: newsList[index].title ?? "",
                                 desc: newsList[index].description ?? "",
                                 content: newsList[index].content ?? "",
