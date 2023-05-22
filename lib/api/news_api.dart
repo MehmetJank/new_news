@@ -14,7 +14,16 @@ class NewsApi {
     int page,
   ) async {
     final response = await _dio.get(
-        '$_baseUrl&country=$country&language=$language&page=$page&apiKey=$_apiKey');
+      '$_baseUrl&country=$country&language=$language&page=$page&apiKey=$_apiKey',
+      options: Options(
+        receiveTimeout: const Duration(
+          seconds: 10,
+        ),
+        sendTimeout: const Duration(
+          seconds: 10,
+        ),
+      ),
+    );
     final data = response.data;
 
     if (data["status"] == "ok") {
@@ -45,7 +54,16 @@ class NewsApi {
     String language,
   ) async {
     final response = await _dio.get(
-        '$_baseUrl/country=$country&category=$category&language=$language&apiKey=$_apiKey');
+      '$_baseUrl/country=$country&category=$category&language=$language&apiKey=$_apiKey',
+      options: Options(
+        receiveTimeout: const Duration(
+          seconds: 10,
+        ),
+        sendTimeout: const Duration(
+          seconds: 10,
+        ),
+      ),
+    );
     final data = response.data;
 
     if (data["status"] == "ok") {
