@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class NewsTile extends StatelessWidget {
+class NewsTile extends StatefulWidget {
   final String imgUrl, title, desc, content, posturl;
 
   const NewsTile({
@@ -14,20 +15,38 @@ class NewsTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<NewsTile> createState() => _NewsTileState();
+}
+
+class _NewsTileState extends State<NewsTile> {
+  void _launchURL(String url) async {
+    final Uri urlLocal = Uri.parse(url);
+    if (!await launchUrl(urlLocal)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not launch $url'),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return Container(
+      margin: const EdgeInsets.all(12),
+      width: MediaQuery.of(context).size.width,
       child: Container(
-        margin: const EdgeInsets.all(12),
-        width: MediaQuery.of(context).size.width,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          alignment: Alignment.bottomCenter,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(6),
-              bottomLeft: Radius.circular(6),
-            ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        alignment: Alignment.bottomCenter,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
           ),
+        ),
+        child: InkWell(
+          mouseCursor: SystemMouseCursors.click,
+          onTap: () => _launchURL(widget.posturl),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -35,7 +54,7 @@ class NewsTile extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: CachedNetworkImage(
-                  imageUrl: imgUrl,
+                  imageUrl: widget.imgUrl,
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
@@ -46,7 +65,7 @@ class NewsTile extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                title,
+                widget.title,
                 maxLines: 2,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,
@@ -56,8 +75,8 @@ class NewsTile extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                desc,
-                maxLines: 2,
+                widget.desc,
+                maxLines: 3,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,
                   fontSize: 14,

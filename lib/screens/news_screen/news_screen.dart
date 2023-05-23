@@ -74,7 +74,13 @@ class _NewsScreenState extends State<NewsScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("New News"),
+          title: Image.asset(
+            "assets/images/logo.png",
+            height: 55,
+            fit: BoxFit.cover,
+            color: Colors.white,
+          ),
+          centerTitle: true,
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
