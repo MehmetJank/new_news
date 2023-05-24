@@ -3,7 +3,6 @@
   "success": "Success",
   "ok": "OK",
   "cancel": "Cancel",
-  "settings": "Settings",
   "login": "Login",
   "login_error": "Login Request Error",
   "register": "Register",
@@ -38,8 +37,11 @@
   "your_mail_address": "Your Mail Address",
   "your_phone_number": "Your Phone Number",
   "--------News Screen--------": "--------News Screen--------",
-  "politcs": "Politcs",
-  "sports": "Sports",
+  "business": "Business",
   "entertainment": "Entertainment",
+  "general": "General",
+  "health": "Health",
+  "science": "Science",
+  "sports": "Sports",
   "technology": "Technology"
 }

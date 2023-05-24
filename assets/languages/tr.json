@@ -3,7 +3,6 @@
   "success": "Başarılı",
   "ok": "Tamam",
   "cancel": "İptal",
-  "settings": "Ayarlar",
   "login": "Giriş",
   "login_error": "Giriş Başarısız",
   "register": "Kaydol",
@@ -38,8 +37,11 @@
   "your_mail_address": "E-posta Adresiniz",
   "your_phone_number": "Telefon Numaranız",
   "--------News Screen--------": "--------News Screen--------",
-  "politics": "Politika",
+  "business": "İş",
+  "entertainment": "Eğlence",
+  "general": "Genel",
+  "health": "Sağlık",
+  "science": "Bilim",
   "sports": "Spor",
-  "entartainment": "Eğlence",
   "technology": "Teknoloji"
 }

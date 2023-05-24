@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:new_news/screens/news_screen/components/categories.dart';
-import 'package:new_news/screens/news_screen/components/news_tile.dart';
 
 import '../../api/news_api.dart';
+import '../../storage/storage.dart';
+import 'components/categoires_2.dart';
+import 'components/category_model.dart';
+import 'components/news_tile.dart';
 
 class NewsScreen extends StatefulWidget {
   const NewsScreen({Key? key}) : super(key: key);
@@ -19,10 +21,12 @@ class _NewsScreenState extends State<NewsScreen> {
   bool isFetching = false;
 
   final ScrollController _scrollController = ScrollController();
+  List<CategorieModel> categories = [];
 
   @override
   void initState() {
     super.initState();
+    categories = getCategories();
     getNews();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -38,9 +42,30 @@ class _NewsScreenState extends State<NewsScreen> {
     super.dispose();
   }
 
+  Future<List<dynamic>> getNewsSettings() async {
+    AppStorage storage = AppStorage();
+    var data = await storage.readAll();
+    String language = data["language"];
+    String country;
+
+    if (language == "en") {
+      country = "us";
+    } else if (language == "tr") {
+      country = "tr";
+      language = "";
+    } else if (language == "fr") {
+      country = "fr";
+    } else {
+      country = "us";
+    }
+
+    return [language, country];
+  }
+
   Future<void> getNews() async {
+    List newsSettings = await getNewsSettings();
     NewsApi newsApi = NewsApi();
-    await newsApi.getNews("us", "en", currentPage);
+    await newsApi.getNews(newsSettings[1], newsSettings[0], currentPage);
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
       setState(() {
@@ -99,7 +124,22 @@ class _NewsScreenState extends State<NewsScreen> {
                 controller: _scrollController,
                 child: Column(
                   children: <Widget>[
-                    const NewsCategoryRow(),
+                    Container(
+                      padding: const EdgeInsets.all(6),
+                      height: 70,
+                      child: ListView.builder(
+                        itemCount: categories.length,
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return CategoriesCard(
+                            categoryImage: categories[index].imagePath,
+                            categoryName: categories[index].categorieName,
+                          );
+                        },
+                      ),
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 16),
                       child: ListView.builder(
@@ -111,8 +151,7 @@ class _NewsScreenState extends State<NewsScreen> {
                               return _buildLoader();
                             } else {
                               return NewsTile(
-                                imgUrl: newsList[index].urlToImage ??
-                                    "https://www.rollingstone.com/wp-content/uploads/2022/07/BCS_600_GL_0325_0151-RT-1C.jpg?w=1581&h=1054&crop=1",
+                                imgUrl: newsList[index].urlToImage ?? "",
                                 title: newsList[index].title ?? "",
                                 desc: newsList[index].description ?? "",
                                 content: newsList[index].content ?? "",

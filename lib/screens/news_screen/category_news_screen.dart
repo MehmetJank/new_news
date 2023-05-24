@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:new_news/localizations/localizations.dart';
 import 'package:new_news/screens/news_screen/components/news_tile.dart';
 
 import '../../api/news_api.dart';
+import '../../storage/storage.dart';
 
 class CategoryNews extends StatefulWidget {
   final String newsCategory;
@@ -38,10 +39,31 @@ class _CategoryNewsState extends State<CategoryNews> {
     super.dispose();
   }
 
+  Future<List<dynamic>> getNewsSettings() async {
+    AppStorage storage = AppStorage();
+    var data = await storage.readAll();
+    String language = data["language"];
+    String country;
+
+    if (language == "en") {
+      country = "us";
+    } else if (language == "tr") {
+      country = "tr";
+      language = "";
+    } else if (language == "fr") {
+      country = "fr";
+    } else {
+      country = "us";
+    }
+
+    return [language, country];
+  }
+
   Future<void> getNews() async {
+    List newsSettings = await getNewsSettings();
     NewsApi newsApi = NewsApi();
     await newsApi.getNewsByCategory(
-        "us", "en", widget.newsCategory, currentPage);
+        newsSettings[1], newsSettings[0], widget.newsCategory, currentPage);
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
       setState(() {
@@ -75,7 +97,7 @@ class _CategoryNewsState extends State<CategoryNews> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.newsCategory.toUpperCase()),
+          title: Text(getTranslatedText(context, widget.newsCategory)),
           centerTitle: true,
         ),
         body: _isLoading
@@ -97,8 +119,7 @@ class _CategoryNewsState extends State<CategoryNews> {
                               return _buildLoader();
                             } else {
                               return NewsTile(
-                                imgUrl: newsList[index].urlToImage ??
-                                    "https://www.rollingstone.com/wp-content/uploads/2022/07/BCS_600_GL_0325_0151-RT-1C.jpg?w=1581&h=1054&crop=1",
+                                imgUrl: newsList[index].urlToImage ?? "",
                                 title: newsList[index].title ?? "",
                                 desc: newsList[index].description ?? "",
                                 content: newsList[index].content ?? "",

@@ -54,7 +54,9 @@ class _NewsTileState extends State<NewsTile> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: CachedNetworkImage(
-                  imageUrl: widget.imgUrl,
+                  imageUrl: widget.imgUrl == "Unknown"
+                      ? "https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg"
+                      : widget.imgUrl,
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
