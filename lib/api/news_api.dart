@@ -50,11 +50,12 @@ class NewsApi {
 
   Future<void> getNewsByCategory(
     String country,
-    String category,
     String language,
+    String category,
+    int page,
   ) async {
     final response = await _dio.get(
-      '$_baseUrl/country=$country&category=$category&language=$language&apiKey=$_apiKey',
+      '$_baseUrl/country=$country&category=$category&language=$language&page=$page&apiKey=$_apiKey',
       options: Options(
         receiveTimeout: const Duration(
           seconds: 10,
@@ -71,13 +72,13 @@ class NewsApi {
         (element) {
           if (element["urlToImage"] != null && element["description"] != null) {
             NewsModel newsModel = NewsModel(
-              title: element["title"],
-              author: element["author"],
-              description: element["description"],
-              urlToImage: element["urlToImage"],
-              publishedAt: DateTime.parse(element["publishedAt"]),
-              content: element["content"],
-              articleUrl: element["url"],
+              title: element["title"] ?? "Unknown",
+              author: element["author"] ?? "Unknown",
+              description: element["description"] ?? "Unknown",
+              urlToImage: element["urlToImage"] ?? "Unknown",
+              publishedAt: DateTime.parse(element["publishedAt"] ?? "Unknown"),
+              content: element["content"] ?? "Unknown",
+              articleUrl: element["url"] ?? "Unknown",
             );
             news.add(newsModel);
           }

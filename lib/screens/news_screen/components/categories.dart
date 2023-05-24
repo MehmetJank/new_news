@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NewsCategoryRow extends StatefulWidget {
   const NewsCategoryRow({Key? key}) : super(key: key);
@@ -29,6 +30,8 @@ class _NewsCategoryRowState extends State<NewsCategoryRow> {
               setState(() {
                 selectedIndex = index;
               });
+              String category = categories[index].toLowerCase();
+              GoRouter.of(context).push('/news/$category');
             },
             child: Container(
               padding: const EdgeInsets.all(10),

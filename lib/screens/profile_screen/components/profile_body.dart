@@ -21,12 +21,6 @@ class _ProfileBodyState extends State<ProfileBody> {
     super.initState();
     try {
       settings = context.read<SettingsCubit>();
-      print("lennn");
-      print(settings.state.userInfo.length);
-      print(settings.state.userInfo[0]);
-      print(settings.state.userInfo[1]);
-      print(settings.state.userInfo[2]);
-      print(settings.state.userInfo[3]);
     } catch (e) {
       // pass
     }
