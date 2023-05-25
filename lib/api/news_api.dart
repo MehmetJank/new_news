@@ -54,11 +54,12 @@ class NewsApi {
     String url;
     if (language == '') {
       url =
-          '$_baseUrl/country=$country&category=$category&page=$page&apiKey=$_apiKey';
+          '$_baseUrl&country=$country&category=$category&page=$page&apiKey=$_apiKey';
     } else {
       url =
-          '$_baseUrl/country=$country&category=$category&language=$language&page=$page&apiKey=$_apiKey';
+          '$_baseUrl&country=$country&category=$category&language=$language&page=$page&apiKey=$_apiKey';
     }
+    print(url);
     final response = await _dio.get(
       url,
       options: Options(
