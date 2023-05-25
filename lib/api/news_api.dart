@@ -5,14 +5,10 @@ import '../screens/news_screen/components/news_model.dart';
 class NewsApi {
   final Dio _dio = Dio();
   final String _baseUrl = 'https://newsapi.org/v2/top-headlines?pageSize=10';
-  final String _apiKey = "";
+  final String _apiKey = "c38fecd54f2448c8b928906f3e93c5f8";
   List<NewsModel> news = [];
 
-  Future<void> getNews(
-    String country,
-    String language,
-    int page,
-  ) async {
+  Future<void> getNews(String country, String language, int page) async {
     String url;
     if (language == '') {
       url = '$_baseUrl&country=$country&page=$page&apiKey=$_apiKey';
@@ -54,11 +50,7 @@ class NewsApi {
   }
 
   Future<void> getNewsByCategory(
-    String country,
-    String language,
-    String category,
-    int page,
-  ) async {
+      String country, String language, String category, int page) async {
     String url;
     if (language == '') {
       url =
