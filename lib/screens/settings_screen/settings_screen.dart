@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:new_news/localizations/localizations.dart';
 
+import '../../localizations/localizations.dart';
 import 'components/settings_body.dart';
 
 class SettingScreen extends StatefulWidget {

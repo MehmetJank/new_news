@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:new_news/screens/settings_screen/components/launguage_cupertino.dart';
 
 import '../../api/user_api.dart';
 import '../../bloc/settings/settings_cubit.dart';
@@ -18,6 +17,8 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  late final SettingsCubit settings;
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 

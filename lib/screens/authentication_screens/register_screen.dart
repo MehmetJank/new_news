@@ -8,7 +8,6 @@ import '../../localizations/localizations.dart';
 import '../../widgets/background_widget.dart';
 import 'components/custom_app_bar.dart';
 import 'components/custom_text_form_field.dart';
-import '../settings_screen/components/launguage_cupertino.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -18,6 +17,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  late final SettingsCubit settings;
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -48,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future<void> _register() async {
     final String name = _nameController.text;
     final String email = _emailController.text;
-    final String phone_number = _phoneController.text;
+    final String phoneNumber = _phoneController.text;
     final String password = _passwordController.text;
     final String passwordAgain = _passwordAgainController.text;
 
@@ -65,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       errors.add(getTranslatedText(context, 'input_mail_address_error'));
     }
 
-    if (phone_number.isEmpty) {
+    if (phoneNumber.isEmpty) {
       errors.add(getTranslatedText(context, 'input_phone_number_error'));
     }
 
@@ -87,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       final dynamic response = await _apiClient.register(
-          name, email, phone_number, password, passwordAgain);
+          name, email, phoneNumber, password, passwordAgain);
 
       if (response != null && response["success"]) {
         userData.add(response["token"].toString());

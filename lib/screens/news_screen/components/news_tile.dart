@@ -3,8 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsTile extends StatefulWidget {
-  final String imgUrl, title, desc, content, posturl;
-
   const NewsTile({
     Key? key,
     required this.imgUrl,
@@ -13,6 +11,8 @@ class NewsTile extends StatefulWidget {
     required this.content,
     required this.posturl,
   }) : super(key: key);
+
+  final String imgUrl, title, desc, content, posturl;
 
   @override
   State<NewsTile> createState() => _NewsTileState();
@@ -54,6 +54,7 @@ class _NewsTileState extends State<NewsTile> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: CachedNetworkImage(
+                  //if widget.imgUrl == "Unkown"
                   imageUrl: widget.imgUrl == "Unknown"
                       ? "https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg"
                       : widget.imgUrl,

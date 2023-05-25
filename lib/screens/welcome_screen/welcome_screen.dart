@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../bloc/settings/settings_cubit.dart';
 import '../../localizations/localizations.dart';
 import '../../widgets/background_widget.dart';

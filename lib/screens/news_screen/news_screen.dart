@@ -1,9 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../api/news_api.dart';
 import '../../storage/storage.dart';
-import 'components/categoires_2.dart';
+import 'components/categoires_card.dart';
 import 'components/category_model.dart';
 import 'components/news_tile.dart';
 
@@ -15,7 +16,8 @@ class NewsScreen extends StatefulWidget {
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  bool _isLoading = true;
+  // bool _isLoading = true;
+  bool _isRefreshing = false;
   List<dynamic> newsList = [];
   int currentPage = 1;
   bool isFetching = false;
@@ -70,7 +72,7 @@ class _NewsScreenState extends State<NewsScreen> {
     if (mounted) {
       setState(() {
         newsList.addAll(newsApi.news);
-        _isLoading = false;
+        // _isLoading = false;
       });
     }
   }
@@ -92,6 +94,20 @@ class _NewsScreenState extends State<NewsScreen> {
         });
       });
     }
+  }
+
+  Future<void> _refreshData() async {
+    setState(() {
+      _isRefreshing = true;
+      newsList.clear();
+      currentPage = 1;
+    });
+
+    await getNews();
+
+    setState(() {
+      _isRefreshing = false;
+    });
   }
 
   @override
@@ -116,51 +132,62 @@ class _NewsScreenState extends State<NewsScreen> {
             ),
           ],
         ),
-        body: _isLoading
+        body: _isRefreshing
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      height: 70,
-                      child: ListView.builder(
-                        itemCount: categories.length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return CategoriesCard(
-                            categoryImage: categories[index].imagePath,
-                            categoryName: categories[index].categorieName,
-                          );
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      child: ListView.builder(
-                          itemCount: newsList.length + 1,
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            if (index == newsList.length) {
-                              return _buildLoader();
-                            } else {
-                              return NewsTile(
-                                imgUrl: newsList[index].urlToImage ?? "",
-                                title: newsList[index].title ?? "",
-                                desc: newsList[index].description ?? "",
-                                content: newsList[index].content ?? "",
-                                posturl: newsList[index].articleUrl ?? "",
+            : RefreshIndicator(
+                onRefresh: _refreshData,
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    dragDevices: {
+                      PointerDeviceKind.touch,
+                      PointerDeviceKind.mouse,
+                    },
+                  ),
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          height: 70,
+                          child: ListView.builder(
+                            itemCount: categories.length,
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return CategoriesCard(
+                                categoryImage: categories[index].imagePath,
+                                categoryName: categories[index].categorieName,
                               );
-                            }
-                          }),
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 16),
+                          child: ListView.builder(
+                              itemCount: newsList.length + 1,
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                if (index == newsList.length) {
+                                  return _buildLoader();
+                                } else {
+                                  return NewsTile(
+                                    imgUrl: newsList[index].urlToImage ?? "",
+                                    title: newsList[index].title ?? "",
+                                    desc: newsList[index].description ?? "",
+                                    content: newsList[index].content ?? "",
+                                    posturl: newsList[index].articleUrl ?? "",
+                                  );
+                                }
+                              }),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
       ),

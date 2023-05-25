@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_news/localizations/localizations.dart';
 
 import '../../../bloc/settings/settings_cubit.dart';
+import '../../../localizations/localizations.dart';
 import '../../settings_screen/components/profile_pic.dart';
 import 'profile_menu.dart';
 

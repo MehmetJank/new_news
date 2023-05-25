@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:new_news/localizations/localizations.dart';
-import 'package:new_news/screens/news_screen/components/news_tile.dart';
 
 import '../../api/news_api.dart';
+import '../../localizations/localizations.dart';
 import '../../storage/storage.dart';
+import 'components/news_tile.dart';
 
 class CategoryNews extends StatefulWidget {
   final String newsCategory;

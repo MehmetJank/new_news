@@ -6,8 +6,6 @@ class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit(super.initialState);
 
   changeLanguage(String lang) async {
-    // update current state
-
     final newState = SettingsState(
       language: lang,
       darkMode: state.darkMode,
@@ -16,8 +14,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
 
     emit(newState);
-
-    // write new language to storage
 
     final storage = AppStorage();
 
@@ -37,8 +33,6 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     emit(newState);
 
-    // write new theme Mode to storage
-
     final storage = AppStorage();
 
     await storage.writeAppSettings(
@@ -57,8 +51,6 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     emit(newState);
 
-    // write userInfo to storage
-
     final storage = AppStorage();
 
     await storage.writeUserData(isLoggedIn: true, userInfo: userInfo);
@@ -74,8 +66,6 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     emit(newState);
 
-    // write userInfo to storage
-
     final storage = AppStorage();
 
     await storage.writeUserData(isLoggedIn: false, userInfo: []);
@@ -90,8 +80,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
 
     emit(newState);
-
-    // write userInfo to storage
 
     final storage = AppStorage();
 

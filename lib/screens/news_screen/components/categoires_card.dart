@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 import '../../../localizations/localizations.dart';
 
 class CategoriesCard extends StatefulWidget {
-  final String categoryImage, categoryName;
-
   const CategoriesCard(
       {super.key, required this.categoryImage, required this.categoryName});
+
+  final String categoryImage, categoryName;
 
   @override
   State<CategoriesCard> createState() => _CategoriesCardState();
@@ -28,7 +28,7 @@ class _CategoriesCardState extends State<CategoriesCard> {
         GoRouter.of(context).push('/news/$categoryNameLower');
       },
       child: Container(
-        margin: EdgeInsets.only(right: 14),
+        margin: const EdgeInsets.only(right: 14),
         child: Stack(
           children: <Widget>[
             ClipRRect(
@@ -50,7 +50,7 @@ class _CategoriesCardState extends State<CategoriesCard> {
               child: Text(
                 getTranslatedText(context, widget.categoryName.toLowerCase()),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w500),

@@ -13,8 +13,15 @@ class NewsApi {
     String language,
     int page,
   ) async {
+    String url;
+    if (language == '') {
+      url = '$_baseUrl&country=$country&page=$page&apiKey=$_apiKey';
+    } else {
+      url =
+          '$_baseUrl&country=$country&language=$language&page=$page&apiKey=$_apiKey';
+    }
     final response = await _dio.get(
-      '$_baseUrl&country=$country&language=$language&page=$page&apiKey=$_apiKey',
+      url,
       options: Options(
         receiveTimeout: const Duration(
           seconds: 10,
@@ -29,18 +36,16 @@ class NewsApi {
     if (data["status"] == "ok") {
       data["articles"].forEach(
         (element) {
-          if (element["urlToImage"] != null && element["description"] != null) {
-            NewsModel newsModel = NewsModel(
-              title: element["title"] ?? "Unknown",
-              author: element["author"] ?? "Unknown",
-              description: element["description"] ?? "Unknown",
-              urlToImage: element["urlToImage"] ?? "Unknown",
-              publishedAt: DateTime.parse(element["publishedAt"] ?? "Unknown"),
-              content: element["content"] ?? "Unknown",
-              articleUrl: element["url"] ?? "Unknown",
-            );
-            news.add(newsModel);
-          }
+          NewsModel newsModel = NewsModel(
+            title: element["title"] ?? "Unknown",
+            author: element["author"] ?? "Unknown",
+            description: element["description"] ?? "Unknown",
+            urlToImage: element["urlToImage"] ?? "Unknown",
+            publishedAt: DateTime.parse(element["publishedAt"] ?? "Unknown"),
+            content: element["content"] ?? "Unknown",
+            articleUrl: element["url"] ?? "Unknown",
+          );
+          news.add(newsModel);
         },
       );
     } else {
@@ -54,8 +59,16 @@ class NewsApi {
     String category,
     int page,
   ) async {
+    String url;
+    if (language == '') {
+      url =
+          '$_baseUrl/country=$country&category=$category&page=$page&apiKey=$_apiKey';
+    } else {
+      url =
+          '$_baseUrl/country=$country&category=$category&language=$language&page=$page&apiKey=$_apiKey';
+    }
     final response = await _dio.get(
-      '$_baseUrl/country=$country&category=$category&language=$language&page=$page&apiKey=$_apiKey',
+      url,
       options: Options(
         receiveTimeout: const Duration(
           seconds: 10,
@@ -70,18 +83,16 @@ class NewsApi {
     if (data["status"] == "ok") {
       data["articles"].forEach(
         (element) {
-          if (element["urlToImage"] != null && element["description"] != null) {
-            NewsModel newsModel = NewsModel(
-              title: element["title"] ?? "Unknown",
-              author: element["author"] ?? "Unknown",
-              description: element["description"] ?? "Unknown",
-              urlToImage: element["urlToImage"] ?? "Unknown",
-              publishedAt: DateTime.parse(element["publishedAt"] ?? "Unknown"),
-              content: element["content"] ?? "Unknown",
-              articleUrl: element["url"] ?? "Unknown",
-            );
-            news.add(newsModel);
-          }
+          NewsModel newsModel = NewsModel(
+            title: element["title"] ?? "Unknown",
+            author: element["author"] ?? "Unknown",
+            description: element["description"] ?? "Unknown",
+            urlToImage: element["urlToImage"] ?? "Unknown",
+            publishedAt: DateTime.parse(element["publishedAt"] ?? "Unknown"),
+            content: element["content"] ?? "Unknown",
+            articleUrl: element["url"] ?? "Unknown",
+          );
+          news.add(newsModel);
         },
       );
     } else {

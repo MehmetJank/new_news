@@ -20,7 +20,6 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final Color? borderSideColor;
   final List<TextInputFormatter>? inputFormatters;
-  //surfixIcon: Icon(Icons.check, color: _passwordMismatchColor),
   final Widget? suffixIcon;
   final bool? obscureText;
 

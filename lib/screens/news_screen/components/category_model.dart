@@ -1,8 +1,7 @@
 class CategorieModel {
-  String imagePath;
-  String categorieName;
-
   CategorieModel({required this.imagePath, required this.categorieName});
+
+  String imagePath, categorieName;
 }
 
 List<CategorieModel> getCategories() {
