@@ -53,18 +53,23 @@ class _NewsTileState extends State<NewsTile> {
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.circular(6),
-                child: CachedNetworkImage(
-                  //if widget.imgUrl == "Unkown"
-                  imageUrl: widget.imgUrl == "Unknown"
-                      ? "https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg"
-                      : widget.imgUrl,
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+                child: widget.imgUrl == "Unknown"
+                    ? Image.asset(
+                        "assets/images/image_not_found.jpg",
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: widget.imgUrl,
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
               ),
               const SizedBox(height: 12),
               Text(

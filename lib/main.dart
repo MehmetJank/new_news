@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'bloc/settings/settings_cubit.dart';
 import 'bloc/settings/settings_state.dart';
 import 'localizations/localizations.dart';
@@ -13,13 +14,14 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key}); 
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  late final SettingsCubit settings;
   //ignore: unused_field
   late ConnectivityResult _connectivityResult;
   late bool _isConnected;
@@ -28,7 +30,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _isConnected = true;
-
+    try {
+      settings = context.read<SettingsCubit>();
+    } catch (e) {
+      // pass
+    }
     _checkConnectivity();
 
     Connectivity().onConnectivityChanged.listen((result) {
@@ -54,7 +60,7 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
           return MaterialApp.router(
-            title: 'Starter',
+            title: 'New News',
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
               AppLocalizations.delegate,
@@ -80,12 +86,13 @@ class _MyAppState extends State<MyApp> {
                       router!,
                       if (!_isConnected)
                         AlertDialog(
-                          title: const Text('Bağlantı Hatası'),
-                          content: const Text(
-                              'İnternet bağlantısı yok. Lütfen bağlantınızı kontrol edin.'),
+                          title: Text(
+                              getTranslatedText(context, "connection_alert")),
+                          content: Text(getTranslatedText(
+                              context, "connection_alert_message")),
                           actions: [
                             TextButton(
-                              child: const Text('Kapat'),
+                              child: Text(getTranslatedText(context, "close")),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                           ],

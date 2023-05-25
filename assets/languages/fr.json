@@ -43,5 +43,9 @@
   "health": "Santé",
   "science": "Science",
   "sports": "Sports",
-  "technology": "Technologie"
+  "technology": "Technologie",
+  "--------Connection Alert": "--------Connection Alert--------",
+  "connection_alert": "Alerte de connexion",
+  "connection_alert_message": "La connexion n'a pas pu être établie. S'il vous plaît, vérifiez votre connexion à internet et réessayez.",
+  "close": "Fermer"
 }

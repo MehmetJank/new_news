@@ -43,5 +43,9 @@
   "health": "Sağlık",
   "science": "Bilim",
   "sports": "Spor",
-  "technology": "Teknoloji"
+  "technology": "Teknoloji",
+  "--------Connection Alert": "--------Connection Alert--------",
+  "connection_alert": "Bağlantı Uyarısı",
+  "connection_alert_message": "Bağlantı kurulamadı. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin.",
+  "close": "Kapat"
 }
