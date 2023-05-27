@@ -59,7 +59,6 @@ class NewsApi {
       url =
           '$_baseUrl&country=$country&category=$category&language=$language&page=$page&apiKey=$_apiKey';
     }
-    print(url);
     final response = await _dio.get(
       url,
       options: Options(

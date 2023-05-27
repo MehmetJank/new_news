@@ -22,6 +22,7 @@ class _NewsTileState extends State<NewsTile> {
   void _launchURL(String url) async {
     final Uri urlLocal = Uri.parse(url);
     if (!await launchUrl(urlLocal)) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Could not launch $url'),
@@ -76,7 +77,7 @@ class _NewsTileState extends State<NewsTile> {
                 widget.title,
                 maxLines: 2,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),
@@ -86,7 +87,7 @@ class _NewsTileState extends State<NewsTile> {
                 widget.desc,
                 maxLines: 3,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
                   fontSize: 14,
                 ),
               ),

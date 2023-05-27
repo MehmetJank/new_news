@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       if (response != null && response["success"]) {
         userData.add(response["token"].toString());
-        userData.add(response["user"].toString());
+        userData.add(response["name"].toString());
         userData.add(response["email"].toString());
         userData.add(response["phone"].toString());
         userData.add(response["profile_image"].toString());

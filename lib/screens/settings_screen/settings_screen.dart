@@ -16,6 +16,7 @@ class _SettingScreenState extends State<SettingScreen> {
   void _launchURL(String url) async {
     final Uri urlLocal = Uri.parse(url);
     if (!await launchUrl(urlLocal)) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Could not launch $url'),
