@@ -176,7 +176,7 @@ class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
           Row(
             children: [
               Text(
-                getTranslatedText(context, "title"),
+                "${getTranslatedText(context, "title")}: ",
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
