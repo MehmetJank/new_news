@@ -14,7 +14,7 @@ class ProfilePic extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           const CircleAvatar(
-            backgroundImage: AssetImage("assets/images/logo.png"),
+            backgroundImage: AssetImage("assets/images/avatar.png"),
           ),
           Positioned(
             right: -16,
@@ -26,14 +26,23 @@ class ProfilePic extends StatelessWidget {
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
-                    side: const BorderSide(color: Colors.white),
+                    side: const BorderSide(
+                      color: Colors.white,
+                    ),
                   ),
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("This feature is not available yet"),
+                    ),
+                  );
+                },
                 child: SvgPicture.asset(
-                  "assets/icons/Camera Icon.svg",
-                  color: Theme.of(context).iconTheme.color,
+                  "assets/icons/camera_icon.svg",
+                  // ignore: deprecated_member_use 
+                  color: Colors.white,
                 ),
               ),
             ),

@@ -20,6 +20,27 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       body: const ProfileBody(),
+      bottomSheet: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("This feature is not available yet"),
+              ),
+            );
+          },
+          child: const Text("Change Profile"),
+        ),
+      ),
     );
   }
 }

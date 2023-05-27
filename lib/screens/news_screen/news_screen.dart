@@ -115,18 +115,20 @@ class _NewsScreenState extends State<NewsScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Image.asset(
-            "assets/images/logo.png",
-            height: 55,
-            fit: BoxFit.cover,
-            color: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Image.asset(
+              "assets/images/logo.png",
+              height: 50,
+              fit: BoxFit.cover,
+              color: Colors.white,
+            ),
           ),
           centerTitle: true,
           actions: [
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                // GoRouter.of(context).go('/settings');
                 GoRouter.of(context).push('/settings');
               },
             ),
@@ -168,22 +170,23 @@ class _NewsScreenState extends State<NewsScreen> {
                         Container(
                           margin: const EdgeInsets.only(top: 16),
                           child: ListView.builder(
-                              itemCount: newsList.length + 1,
-                              shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                if (index == newsList.length) {
-                                  return _buildLoader();
-                                } else {
-                                  return NewsTile(
-                                    imgUrl: newsList[index].urlToImage ?? "",
-                                    title: newsList[index].title ?? "",
-                                    desc: newsList[index].description ?? "",
-                                    content: newsList[index].content ?? "",
-                                    posturl: newsList[index].articleUrl ?? "",
-                                  );
-                                }
-                              }),
+                            itemCount: newsList.length + 1,
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              if (index == newsList.length) {
+                                return _buildLoader();
+                              } else {
+                                return NewsTile(
+                                  imgUrl: newsList[index].urlToImage ?? "",
+                                  title: newsList[index].title ?? "",
+                                  desc: newsList[index].description ?? "",
+                                  content: newsList[index].content ?? "",
+                                  posturl: newsList[index].articleUrl ?? "",
+                                );
+                              }
+                            },
+                          ),
                         ),
                       ],
                     ),

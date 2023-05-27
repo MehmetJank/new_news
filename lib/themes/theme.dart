@@ -7,8 +7,10 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 class Themes {
   static ThemeData lightTheme = FlexThemeData.light(
     primary: const Color(0xff660708), // Blood Red
-    background: const Color(0xffF5F3F4), //White Smoke
+    background: const Color(0xffD3D3D3), //Timberwolf
     secondary: const Color(0xffA4161A), // Cornell Red
+    scaffoldBackground: const Color(0xffD3D3D3), // Isabelline
+    appBarBackground: const Color(0xff660708), // Blood Red
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
         color: Colors.black,
@@ -26,6 +28,8 @@ class Themes {
     primary: const Color(0xff660708), // Blood Red
     background: const Color(0xff161A1D), //Eerie Black
     secondary: const Color(0xffA4161A), // Cornell Red
+    scaffoldBackground: const Color(0xff161A1D), //Eerie Black
+    appBarBackground: const Color(0xff660708), // Blood Red
     textTheme: const TextTheme(
       bodyLarge: TextStyle(
         color: Colors.white,

@@ -5,7 +5,6 @@ class SettingMenu extends StatelessWidget {
   const SettingMenu({
     Key? key,
     required this.text,
-    this.icon,
     this.assetIcon,
     this.press,
     this.onChanged,
@@ -14,7 +13,6 @@ class SettingMenu extends StatelessWidget {
 
   final String text;
   final String? assetIcon;
-  final IconData? icon;
   final VoidCallback? press;
   final bool? isSwitched;
   final ValueChanged<bool>? onChanged;
@@ -26,30 +24,29 @@ class SettingMenu extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           padding: const EdgeInsets.all(20),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
         onPressed: press,
         child: Row(
           children: [
-            if (icon != null)
-              Icon(
-                icon,
-                weight: 22,
-                color: Theme.of(context).iconTheme.color,
-              )
-            else if (assetIcon != null)
-              SvgPicture.asset(
-                assetIcon!,
-                width: 22,
-                color: Theme.of(context).iconTheme.color,
-              ),
+            SvgPicture.asset(
+              assetIcon!,
+              width: 22,
+              height: 22,
+              // ignore: deprecated_member_use
+              color: Colors.white,
+            ),
             const SizedBox(width: 20),
             Expanded(
               child: Text(
                 text,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
               ),
             ),
             if (onChanged != null)
@@ -65,7 +62,7 @@ class SettingMenu extends StatelessWidget {
             else
               const Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.black26,
+                color: Colors.white,
               ),
           ],
         ),

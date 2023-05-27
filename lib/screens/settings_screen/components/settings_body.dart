@@ -37,21 +37,23 @@ class _BodyState extends State<Body> {
           const SizedBox(height: 20),
           SettingMenu(
             text: getTranslatedText(context, 'my_account'),
-            assetIcon: "assets/icons/User Icon.svg",
+            assetIcon: "assets/icons/user.svg",
             press: () => {
               GoRouter.of(context).push('/profile'),
             },
           ),
           SettingMenu(
             text: getTranslatedText(context, 'language'),
-            icon: Icons.language,
+            assetIcon: "assets/icons/language.svg",
             press: () {
               showActionSheet(context);
             },
           ),
           SettingMenu(
             text: getTranslatedText(context, 'dark_mode'),
-            icon: Icons.dark_mode,
+            assetIcon: isDarkMode
+                ? "assets/icons/dark_mode.svg"
+                : "assets/icons/light_mode.svg",
             onChanged: (value) {
               setState(() {
                 isDarkMode = value;
@@ -62,12 +64,11 @@ class _BodyState extends State<Body> {
           ),
           SettingMenu(
             text: getTranslatedText(context, 'help_center'),
-            assetIcon: "assets/icons/Question mark.svg",
-            press: () {},
+            assetIcon: "assets/icons/support.svg",
           ),
           SettingMenu(
             text: getTranslatedText(context, 'logout'),
-            assetIcon: "assets/icons/Log out.svg",
+            assetIcon: "assets/icons/logout.svg",
             press: () {
               showDialog(
                 context: context,
@@ -79,14 +80,22 @@ class _BodyState extends State<Body> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text(getTranslatedText(context, 'cancel')),
+                      child: Text(
+                        getTranslatedText(context, 'cancel'),
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
+                        ),
+                      ),
                     ),
                     TextButton(
                       onPressed: () {
                         settings.userLogout();
                         GoRouter.of(context).go('/welcome');
                       },
-                      child: Text(getTranslatedText(context, 'logout')),
+                      child: Text(
+                        getTranslatedText(context, 'logout'),
+                        style: const TextStyle(color: Colors.red),
+                      ),
                     ),
                   ],
                 ),
