@@ -9,8 +9,7 @@ New News is a Flutter news application designed to keep you informed and up-to-d
 
 ## Video Record
 
-![Video](screenshots/new_news_screen_recording.mp4)
-
+https://github.com/MehmetJank/new_news/assets/92443831/469c87f1-bbba-4fca-87e1-3291ce92ca67
 
 ## Screenshots
 
