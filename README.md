@@ -1,16 +1,42 @@
-# new_news
+# New News
 
-A new Flutter project.
+New News is a Flutter news application designed to keep you informed and up-to-date with the latest news from around the world.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Browse news articles from various sources and categories.
+- Read detailed news articles with images and descriptions.
 
-A few resources to get you started if this is your first Flutter project:
+## Video Record
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![Video](screenshots/new_news_screen_recording.mp4)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Screenshots
+
+![welcome_screen](screenshots/welcome_screen.png)
+![login_screen](screenshots/login_screen.png)
+![register_screen](screenshots/register_screen.png)
+
+
+## Technologies Used
+
+- Flutter
+- Dart programming language
+- News API for fetching news data
+- Firebase for user authentication and data storage
+
+## How to Run
+
+1. Clone the repository: `git clone https://github.com/username/NewNews.git`
+2. Navigate to the project directory: `cd NewNews`
+3. Install dependencies: `flutter pub get`
+4. Run the app: `flutter run`
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue on the GitHub repository.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
