@@ -8,6 +8,7 @@ New News is a Flutter news application designed by Mehmet Can Kaya (Student ID: 
 - Read detailed news articles with images and descriptions.
 
 ## Video Record
+https://github.com/MehmetJank/new_news/assets/92443831/b079622f-126d-4bb2-b0ab-2c1dce939b4c
 
 ## Screenshots
 
@@ -29,7 +30,7 @@ New News is a Flutter news application designed by Mehmet Can Kaya (Student ID: 
 
 | Settings Screen Dark Mode                                          | Settings Screen Light Mode                                          |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| ![settings_screen_dark](screenshots/settings_screen_dark_mode.png) | ![settings_screen_light](screenshots/settings_screen_light_modepng) |
+| ![settings_screen_dark](screenshots/settings_screen_dark_mode.png) | ![settings_screen_light](screenshots/settings_screen_light_mode.png) |
 
 | Profile Screen Dark Mode                                         | Profile Screen Light Mode                                          |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
