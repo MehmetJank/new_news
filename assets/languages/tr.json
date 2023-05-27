@@ -78,7 +78,7 @@
   "close_ticket": "Destek Talebini Kapat",
   "close_ticket_message": "Destek talebini kapatmak istediğinize emin misiniz?",
   "ticket_closed_success": "Destek talebi başarıyla kapatıldı",
-  "this_future_is_not_available": "Bu özellik henüz kullanılamıyor",
+  "this_future_not_available": "Bu özellik henüz kullanılamıyor",
   "ticket_closed_2": "Destek Talebi Kapatıldı.",
   "ticket_closed_message_2": "Destek talebiniz başarıyla kapatıldı."
 }
