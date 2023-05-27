@@ -7,6 +7,10 @@ import '../screens/news_screen/news_screen.dart';
 import '../screens/profile_screen/profile_screen.dart';
 import '../screens/settings_screen/settings_screen.dart';
 import '../screens/authentication_screens/register_screen.dart';
+import '../screens/ticket_screens/create_ticket_screen.dart';
+import '../screens/ticket_screens/ticket_detail_screen.dart';
+import '../screens/ticket_screens/ticket_list_screen.dart';
+import '../screens/ticket_screens/ticket_screen.dart';
 import '../screens/welcome_screen/welcome_screen.dart';
 
 final routes = GoRouter(
@@ -46,6 +50,25 @@ final routes = GoRouter(
     GoRoute(
       path: '/profile',
       builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/ticket',
+      builder: (context, state) => const TicketScreen(),
+    ),
+    GoRoute(
+      path: '/create_ticket',
+      builder: (context, state) => const CreateTicketScreen(),
+    ),
+    GoRoute(
+      path: '/ticket_list',
+      builder: (context, state) => const TicketListScreen(),
+    ),
+    GoRoute(
+      path: '/ticket/:id',
+      builder: (context, state) {
+        final ticketId = int.tryParse(state.pathParameters['id']!)!;
+        return TicketDetailsScreen(ticketId: ticketId);
+      },
     ),
   ],
 );

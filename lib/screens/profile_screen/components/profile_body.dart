@@ -57,9 +57,11 @@ class _ProfileBodyState extends State<ProfileBody> {
             info: settings.state.userInfo[3],
           ),
           ProfileMenu(
-            title: "Register Date",
+            title: getTranslatedText(context, "register_date"),
             icon: "assets/icons/date.svg",
-            info: _formatDate(settings.state.userInfo[5]),
+            info: _formatDate(
+              settings.state.userInfo[5],
+            ),
           ),
         ],
       ),

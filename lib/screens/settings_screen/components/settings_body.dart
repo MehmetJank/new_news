@@ -65,6 +65,9 @@ class _BodyState extends State<Body> {
           SettingMenu(
             text: getTranslatedText(context, 'help_center'),
             assetIcon: "assets/icons/support.svg",
+            press: () {
+              GoRouter.of(context).push('/ticket');
+            },
           ),
           SettingMenu(
             text: getTranslatedText(context, 'logout'),

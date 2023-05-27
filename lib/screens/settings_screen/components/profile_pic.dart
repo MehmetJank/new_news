@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../localizations/localizations.dart';
+
 class ProfilePic extends StatelessWidget {
   const ProfilePic({Key? key}) : super(key: key);
 
@@ -34,14 +36,15 @@ class ProfilePic extends StatelessWidget {
                 ),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("This feature is not available yet"),
+                    SnackBar(
+                      content: Text(getTranslatedText(
+                          context, "this_future_not_available")),
                     ),
                   );
                 },
                 child: SvgPicture.asset(
                   "assets/icons/camera_icon.svg",
-                  // ignore: deprecated_member_use 
+                  // ignore: deprecated_member_use
                   color: Colors.white,
                 ),
               ),
