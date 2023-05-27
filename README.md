@@ -57,7 +57,6 @@ https://github.com/MehmetJank/new_news/assets/92443831/b079622f-126d-4bb2-b0ab-2
 - Flutter
 - Dart programming language
 - News API for fetching news data
-- Firebase for user authentication and data storage
 
 ## How to Run
 
